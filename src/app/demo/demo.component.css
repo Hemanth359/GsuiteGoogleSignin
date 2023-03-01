@@ -1,0 +1,52 @@
+.bg-transparent {
+  background-color: transparent;
+}
+
+:host {
+  height: 100%;
+}
+
+.photo {
+  object-fit: contain;
+}
+
+.card {
+  width: 20rem;
+  margin: 0 auto;
+}
+
+
+/* CUSTOM CSS */
+
+asl-google-signin-button {
+  width: 200px;
+  height: 50px;
+}
+
+.items {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.social-item {
+  margin: 5px 0;
+  border: none;
+  padding: 10px;
+}
+
+.facebook {
+  background: #3b5998;
+  color: #fff;
+}
+.microsoft {
+  color: #fff;
+  background: #00a2ed
+}
+
+.google {
+  width: 100%;
+  background: #fff;
+  text-align: center;
+  line-height: 35px;;
+  
+}
