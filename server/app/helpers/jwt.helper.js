@@ -17,6 +17,7 @@ exports.jwt = () => {
 			'/users/loginMe',
 			'/users/registerMe',
 			'/users',
+			'/users/googleUserLogin',
 			'/users/userName/**'
 		]
 	});

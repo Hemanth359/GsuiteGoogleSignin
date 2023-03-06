@@ -1,8 +1,23 @@
 const Note = require('../models/user.model');
 const userService = require('../services/user.service');
 
+
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client('222456991365-f3ltlkb9utlauipdaq0shode452uh39i.apps.googleusercontent.com');
+
+
 exports.registerMe = async (req, res,next) => {
 	// return res.json("Sucess");
+
+	// const ticket = await client.verifyIdToken({
+	// 	idToken: req.body.idToken,
+	// 	audience: '222456991365-f3ltlkb9utlauipdaq0shode452uh39i.apps.googleusercontent.com',  // Your client ID here
+	//   });
+	//   const payload = ticket.getPayload();
+	//   console.log("`````````````````````````````````````````")
+	//   console.log(payload)
+
+
 	userService.create(req.body)
 		.then(() => res.json({}))
 		.catch(err => next(err));
@@ -21,8 +36,25 @@ exports.loginMe = async (req, res, next) => {
 	}
 }
 
+
+exports.googleUserlogin = async (req, res, next) => {
+	try {
+		let user = await userService.googleUserLogin(req.body);
+		if (user) {
+			res.json(user);
+		} else {
+			res.status(400).json({ message: 'Ivalid login' })
+		}
+	} catch (error) {
+		console.log("in catch!!!!!!!!!!!!!!!!!!")
+		console.log(error)
+		next(error);
+	}
+}
+
 exports.getAll = async (req, res, next) => {
 	try {
+		console.log("12222222222222222")
 		let users = await userService.getAll();
 		res.json(users);
 	} catch (error) {

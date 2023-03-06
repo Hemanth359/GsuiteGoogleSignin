@@ -23,9 +23,28 @@ export class AuthenticationService {
 	login(username: string, password: string) {
 		return this.http.post<any>(`http://localhost:3000/users/loginMe`, { username, password })
 			.pipe(map(user => {
-
+console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+console.log(user)
 				// login successful if there's a jwt token in the response
 				if (user && user.token) {
+					// store user details and jwt token in local storage to keep user logged in between page refreshes
+					localStorage.setItem('currentUser', JSON.stringify(user));
+					this.currentUserSubject.next(user);
+				}
+
+				return user;
+			}));
+	}
+
+	googleUserLogin( idToken: string,client_id) {
+		return this.http.post<any>(`http://localhost:3000/users/googleUserLogin`, { idToken ,client_id})
+			.pipe(map(user => {
+
+				// login successful if there's a jwt token in the response
+				user.token=idToken
+				console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+console.log(user)
+				if (user) {
 					// store user details and jwt token in local storage to keep user logged in between page refreshes
 					localStorage.setItem('currentUser', JSON.stringify(user));
 					this.currentUserSubject.next(user);

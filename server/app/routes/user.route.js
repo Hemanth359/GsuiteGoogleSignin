@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/registerMe', userController.registerMe);
+router.post('/googleUserLogin', userController.googleUserlogin);
 router.post('/loginMe', userController.loginMe);
 router.get('/usersMe', userController.getAll);
 router.get('/current', userController.getCurrent);

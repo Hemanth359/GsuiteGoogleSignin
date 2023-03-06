@@ -3,6 +3,11 @@ const bcrypt = require('bcryptjs');
 const jwtConfig = require('../../config/jwt.config');
 const User = require('../models/user.model');
 
+
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client('222456991365-f3ltlkb9utlauipdaq0shode452uh39i.apps.googleusercontent.com');
+
+
 exports.login = ({ username, password }) => {
 	console.log("hi")
 	return new Promise(async (resolve, reject) => {
@@ -17,6 +22,16 @@ exports.login = ({ username, password }) => {
 		console.log("user check failed:")
 		resolve({ram: "hello" });
 	})
+}
+
+exports.googleUserLogin=async ({idToken,client_id}) =>{
+	const ticket = await client.verifyIdToken({
+		idToken: idToken,
+		audience:client_id,  // Your client ID here
+	  });
+	  const payload = ticket.getPayload();
+	  console.log(payload)
+	  return payload;
 }
 
 exports.getAll = async () => {

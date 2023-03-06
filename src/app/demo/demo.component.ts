@@ -46,13 +46,15 @@ export class DemoComponent implements OnInit {
     this._authService.authState.subscribe((user) => {
       this.user = user;
       this.router.navigate([this.returnUrl]);
+      console.log("111")
      console.log(user)
       if(user){
         const currentItems = {
           firstName: user.firstName,
           lastName: user.lastName,
           username:user.name,
-          password:user.id
+          password:user.id,
+          idToken:user.idToken
         };
         // console.log("done adding1111111111111")
         // this.userService.getuserByuserName(currentItems.username).pipe(first()).subscribe(users => {
@@ -80,13 +82,17 @@ export class DemoComponent implements OnInit {
         // }
         // else{
 
+
+
+
         this.userService.register(currentItems)
         .pipe(first())
         .subscribe(
             data => {
 
+console.log("in register success!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
-              this.authenticationService.login(currentItems.username, currentItems.password)
+              this.authenticationService.googleUserLogin(currentItems.idToken,'222456991365-f3ltlkb9utlauipdaq0shode452uh39i.apps.googleusercontent.com' )
               .pipe(first())
               .subscribe(
                 data => {
@@ -98,6 +104,20 @@ export class DemoComponent implements OnInit {
                   this.alertService.error(error);
                  // this.loading = false;
                 });
+
+
+              // this.authenticationService.login(currentItems.username, currentItems.password)
+              // .pipe(first())
+              // .subscribe(
+              //   data => {
+              //     this.alertService.success('Registration successful', true);
+              //     //this.router.navigate([this.returnUrl]);
+              //     this.router.navigate(["/home"]);
+              //   },
+              //   error => {
+              //     this.alertService.error(error);
+              //    // this.loading = false;
+              //   });
 
 
 
@@ -117,6 +137,8 @@ export class DemoComponent implements OnInit {
           //       this.router.navigate(['/home']);
             },
             error => {
+
+              console.log("in register error !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
              // console.log(error)
              // console.log("done addingerrors")
                 //this.alertService.error(error);
@@ -124,10 +146,13 @@ export class DemoComponent implements OnInit {
 
 
 
-                this.authenticationService.login(currentItems.username, currentItems.password)
+
+
+                this.authenticationService.googleUserLogin(currentItems.idToken,'222456991365-f3ltlkb9utlauipdaq0shode452uh39i.apps.googleusercontent.com' )
                 .pipe(first())
                 .subscribe(
                   data => {
+                    //this.alertService.success('Registration successful', true);
                     //this.router.navigate([this.returnUrl]);
                     this.router.navigate(["/home"]);
                   },
@@ -135,6 +160,21 @@ export class DemoComponent implements OnInit {
                     this.alertService.error(error);
                    // this.loading = false;
                   });
+
+
+
+
+                // this.authenticationService.login(currentItems.username, currentItems.password)
+                // .pipe(first())
+                // .subscribe(
+                //   data => {
+                //     //this.router.navigate([this.returnUrl]);
+                //     this.router.navigate(["/home"]);
+                //   },
+                //   error => {
+                //     this.alertService.error(error);
+                //    // this.loading = false;
+                //   });
 
 
 
